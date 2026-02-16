@@ -14,7 +14,7 @@ cd tic-tac-toe
 2. Run the game (replace `main.py` with the actual script name if different):
 
 ```bash
-python3 main.py
+python main.py
 ```
 
 ## Requirements
@@ -39,3 +39,4 @@ Small fixes and improvements welcome — add features (AI opponent, GUI), refact
 ## License
 
 MIT — feel free to use and adapt.
+
