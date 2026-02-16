@@ -70,6 +70,15 @@ winning_lines = [
 ]
 
 
+def reset_board():
+    for i in winning_lines:
+        grid[i[0][0]][i[0][1]] = " "
+        grid[i[1][0]][i[1][1]] = " "
+        grid[i[2][0]][i[2][1]] = " "
+
+    print_board()
+
+
 def check_winner():
     for line in winning_lines:
         pos1 = grid[line[0][0]][line[0][1]]
@@ -83,9 +92,8 @@ def check_winner():
 
 
 def main():
-    play_again = True
-    while play_again:
-        print_board()
+    while True:
+        reset_board()
         you, opponent = select_player()
         turn_player1 = True
         while True:
@@ -93,17 +101,10 @@ def main():
             if winner:
                 if winner == you:
                     print("You are the winner")
-                    break
+
                 elif winner == opponent:
                     print("Your opponent won the game")
-                    break
-
-                again = input("Wanna play again? (y/n): ").lower()
-                if not again:
-                    play_again = False
-                    break
-                else:
-                    continue
+                break
 
             else:
                 if turn_player1:
@@ -114,6 +115,11 @@ def main():
                     game(opponent)
                     turn_player1 = True
                     print("Your Turn")
+
+        again = input("Wanna play again? (y/n): ").lower()
+        if again != "y":
+            print("Game over")
+            break
 
 
 if __name__ == "__main__":
