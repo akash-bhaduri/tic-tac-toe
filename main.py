@@ -69,6 +69,18 @@ winning_lines = [
     [(0, 2), (1, 1), (2, 0)],  # Two diagonals
 ]
 
+all_positions = [
+    (0, 0),
+    (0, 1),
+    (0, 2),
+    (1, 0),
+    (1, 1),
+    (1, 2),
+    (2, 0),
+    (2, 1),
+    (2, 2),
+]
+
 
 def reset_board():
     for i in winning_lines:
@@ -91,12 +103,26 @@ def check_winner():
     return False
 
 
+def is_draw():
+    for pos in all_positions:
+        if grid[pos[0]][pos[1]] == " ":
+            return False
+    return True
+
+
 def main():
     while True:
         reset_board()
         you, opponent = select_player()
         turn_player1 = True
         while True:
+            if turn_player1:
+                game(you)
+                turn_player1 = False
+            else:
+                game(opponent)
+                turn_player1 = True
+
             winner = check_winner()
             if winner:
                 if winner == you:
@@ -105,16 +131,11 @@ def main():
                 elif winner == opponent:
                     print("Your opponent won the game")
                 break
+            elif is_draw():
+                print("It's a Draw")
+                break
 
-            else:
-                if turn_player1:
-                    game(you)
-                    turn_player1 = False
-                    print("opponent's Turn")
-                else:
-                    game(opponent)
-                    turn_player1 = True
-                    print("Your Turn")
+            print("Opponent's Turn" if turn_player1 == False else "Your Turn")
 
         again = input("Wanna play again? (y/n): ").lower()
         if again != "y":
